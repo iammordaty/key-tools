@@ -1,0 +1,29 @@
+{
+    "name": "iammordaty/key-tools",
+    "description": "KeyTools is a library that allows you to convert musical keys between notations. In addition, KeyTools allows you to calculate matching keys for harmonic mixing.",
+    "keywords": [ "harmonic-mixing", "dj", "automation", "camelot-wheel", "key", "beatport", "traktor", "rekordbox" ],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "iammordaty",
+            "email": "iammordaty@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": "~7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "KeyTools\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KeyTools\\Tests\\": "tests"
+        }
+    }
+}
