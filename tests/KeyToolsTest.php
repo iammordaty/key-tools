@@ -64,21 +64,7 @@ class KeyToolsTest extends TestCase
         [ $key, $step, $toggleScale ] = $params;
 
         $keyTools = new KeyTools();
-        $isValidKey = $keyTools->isValidKey($key);
-
-        $this->assertTrue($isValidKey);
-
-        $mock = $this->getMockBuilder(KeyTools::class)
-            ->setMethods([ 'isValidKey' ])
-            ->getMock();
-
-        $mock
-            ->expects($this->once())
-            ->method('isValidKey')
-            ->with($key)
-            ->willReturn($isValidKey);
-
-        $calculatedKey = $mock->calculateKey($key, $step, $toggleScale);
+        $calculatedKey = $keyTools->calculateKey($key, $step, $toggleScale);
 
         $this->assertSame($expectedKey, $calculatedKey);
     }
@@ -151,21 +137,7 @@ class KeyToolsTest extends TestCase
         [ $key, $notation ] = $params;
 
         $keyTools = new KeyTools();
-        $isValidKey = $keyTools->isValidKey($key);
-
-        $this->assertTrue($isValidKey);
-
-        $mock = $this->getMockBuilder(KeyTools::class)
-            ->setMethods([ 'isValidKey' ])
-            ->getMock();
-
-        $mock
-            ->expects($this->once())
-            ->method('isValidKey')
-            ->with($key)
-            ->willReturn($isValidKey);
-
-        $convertedKey = $mock->convertKeyToNotation($key, $notation);
+        $convertedKey = $keyTools->convertKeyToNotation($key, $notation);
 
         $this->assertSame($expectedKey, $convertedKey);
     }

@@ -175,7 +175,9 @@ class KeyTools
      */
     public function calculateKey(string $key, int $step = 0, bool $toggleScale = false): string
     {
-        if (!$this->isValidKey($key)) {
+        $keyIndex = $this->getKeyIndex($key);
+
+        if (!$this->isValidKeyIndex($keyIndex)) {
             throw new InvalidKeyException(sprintf('Invalid key specified (%s)', $key));
         }
 
@@ -184,7 +186,6 @@ class KeyTools
         }
 
         $notation = $this->getNotation($key);
-        $keyIndex = $this->getKeyIndex($key);
         $newKeyIndex = $this->calculateNewKeyIndex($keyIndex, $step, $toggleScale);
 
         return self::NOTATION_TO_KEYS_MAP[$notation][$newKeyIndex];
@@ -200,15 +201,15 @@ class KeyTools
      */
     public function convertKeyToNotation(string $key, string $newNotation): string
     {
-        if (!$this->isValidKey($key)) {
+        $keyIndex = $this->getKeyIndex($key);
+
+        if (!$this->isValidKeyIndex($keyIndex)) {
             throw new InvalidKeyException(sprintf('Invalid key specified (%s)', $key));
         }
 
         if (!$this->isSupportedNotation($newNotation)) {
             throw new UnsupportedNotationException(sprintf('Invalid notation specified (%s)', $newNotation));
         }
-
-        $keyIndex = $this->getKeyIndex($key);
 
         return self::NOTATION_TO_KEYS_MAP[$newNotation][$keyIndex];
     }
@@ -219,7 +220,9 @@ class KeyTools
      */
     public function isValidKey(string $key): bool
     {
-        return $this->getKeyIndex($key) !== null;
+        $keyIndex = $this->getKeyIndex($key);
+
+        return $this->isValidKeyIndex($keyIndex);
     }
 
     /**
@@ -237,11 +240,11 @@ class KeyTools
      */
     public function isMajorKey($key): bool
     {
-        if (!$this->isValidKey($key)) {
+        $keyIndex = $this->getKeyIndex($key);
+
+        if (!$this->isValidKeyIndex($keyIndex)) {
             throw new InvalidKeyException(sprintf('Invalid key specified (%s)', $key));
         }
-
-        $keyIndex = $this->getKeyIndex($key);
 
         return ($keyIndex % 2) !== 0;
     }
@@ -252,11 +255,11 @@ class KeyTools
      */
     public function isMinorKey($key): bool
     {
-        if (!$this->isValidKey($key)) {
+        $keyIndex = $this->getKeyIndex($key);
+
+        if (!$this->isValidKeyIndex($keyIndex)) {
             throw new InvalidKeyException(sprintf('Invalid key specified (%s)', $key));
         }
-
-        $keyIndex = $this->getKeyIndex($key);
 
         return ($keyIndex % 2) === 0;
     }
@@ -419,6 +422,15 @@ class KeyTools
                 }
             }
         }
+    }
+
+    /**
+     * @param ?int $keyIndex
+     * @return bool
+     */
+    private function isValidKeyIndex(?int $keyIndex): bool
+    {
+        return is_int($keyIndex) && $keyIndex >= 0 && $keyIndex <= self::WHEEL_KEYS_NUM * 2;
     }
 
     /**
