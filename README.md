@@ -12,7 +12,7 @@ KeyTools is based on the code written by [@mossspence](https://github.com/mosssp
 
 ## Installation
 
-Use Composer to install it:
+Use [Composer](https://getcomposer.org/) to install it:
 
 ```bash
 $ composer require iammordaty/key-tools
@@ -24,38 +24,36 @@ $ composer require iammordaty/key-tools
 
 ## Usage
 
-Working with the library is easy, take a look at the examples below.
-
-### Basic usage
+The following example shows how to calculate a new key.
 
 ```php
 use KeyTools\KeyTools;
 
 $keyTools = new KeyTools();
 
-echo $keyTools->calculateKey('3A'); // = 3A
-echo $keyTools->calculateKey('3A', 1); // = 4A
-echo $keyTools->calculateKey('3A', 2); // = 5A
-echo $keyTools->calculateKey('3A', -1); // = 2A
-echo $keyTools->calculateKey('3A', 0, true); // = 3B
+echo $keyTools->calculateKey('3A'); // "3A"
+echo $keyTools->calculateKey('3A', 1); // "4A"
+echo $keyTools->calculateKey('3A', 2); // "5A"
+echo $keyTools->calculateKey('3A', -1); // "2A"
+echo $keyTools->calculateKey('3A', 0, true); // "3B"
 ```
 
-You can also use shorthand methods:
+To calculate new key, you can also use shorthand methods:
 
 ```php
-echo $keyTools->noChange('3A'); // = 3A
-echo $keyTools->perfectFifth('3A'); // = 4A
-echo $keyTools->wholeStep('3A'); // = 5A
-echo $keyTools->perfectFourth('3A'); // = 2A
-echo $keyTools->relativeMinorToMajor('3A'); // = 3B
+echo $keyTools->noChange('3A'); // "3A"
+echo $keyTools->perfectFifth('3A'); // "4A"
+echo $keyTools->wholeStep('3A'); // "5A"
+echo $keyTools->perfectFourth('3A'); // "2A"
+echo $keyTools->relativeMinorToMajor('3A'); // "3B"
 ```
 
-Converting keys between notations is simple:
+Also, conversion of keys between notations is easy:
 
 ```php
-echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_CAMELOT_KEY); // = 4A
-echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_OPEN_KEY); // = 9M
-echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_MUSICAL); // = Fm
+echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_CAMELOT_KEY); // "4A"
+echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_OPEN_KEY); // "9M"
+echo $keyTools->convertKeyToNotation('Fmin', KeyTools::NOTATION_MUSICAL); // = "Fm"
 ```
 
 KeyTools allows key and notation validation by suitable methods...
@@ -74,10 +72,10 @@ if (!$keyTools->isSupportedNotation($notation)) {
     exit('Unsupported notation');
 }
 
-echo $keyTools->convertKeyToNotation($key, $notation); // = 4A
+echo $keyTools->convertKeyToNotation($key, $notation); // "4A"
 ```
 
-or by throwing appropriate exceptions:
+... or by throwing appropriate exceptions:
 
 
 ```php
@@ -92,7 +90,7 @@ $notation = KeyTools::NOTATION_CAMELOT_KEY;
 try {
     $keyTools = new KeyTools();
 
-    echo $keyTools->convertKeyToNotation($key, $notation); // = 4A
+    echo $keyTools->convertKeyToNotation($key, $notation); // "4A"
 } catch (InvalidKeyException | UnsupportedNotationException $e) {
     echo $e->getMessage();
 }
@@ -101,7 +99,7 @@ try {
 
 ## Tests
 
-To execute the test suite, you'll need phpunit.
+Use [PHPunit](https://phpunit.de) to run tests:
 
 ```bash
 $ phpunit
@@ -110,8 +108,8 @@ $ phpunit
 ## Further informations
 
  - [Harmonic mixing overview and how-to](http://www.harmonic-mixing.com/HowTo.aspx)
- - ["What Is Harmonic Mixing?" -- tutorial by DJ Endo](http://blog.dubspot.com/harmonic-mixing-w-dj-endo-part-1/)
- - ["Digital DJing: harmonic mixing" -- tutorial by Radley Marx](https://radleymarx.com/djs/digital-djing-harmonic-mixing/)
+ - ["What Is Harmonic Mixing?" – tutorial by DJ Endo](http://blog.dubspot.com/harmonic-mixing-w-dj-endo-part-1/)
+ - ["Digital DJing: harmonic mixing" – tutorial by Radley Marx](https://radleymarx.com/djs/digital-djing-harmonic-mixing/)
  - [Open Key notation](https://beatunes.com/en/open-key-notation.html)
  - [Camelot wheel (image)](https://forums.pioneerdj.com/hc/user_images/yBXP1v0OnnB8wIrg3_mbpw.jpeg)
  - [More possibilities for harmonic mixing (image)](https://imgur.com/KYw9IBE)
