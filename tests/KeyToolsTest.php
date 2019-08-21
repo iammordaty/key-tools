@@ -23,7 +23,7 @@ class KeyToolsTest extends TestCase
         $keyTools = new KeyTools($keyToolsParams);
         $calculatedResult = $keyTools->isValidKey($key);
 
-        $this->assertTrue($calculatedResult);
+        static::assertTrue($calculatedResult);
     }
 
     public function dataCreateSuccess()
@@ -51,7 +51,7 @@ class KeyToolsTest extends TestCase
     public function dataCreateError()
     {
         return [
-            [ [ 'notation' => uniqid()                             ], UnsupportedNotationException::class ],
+            [ [ 'notation' => uniqid('', true)                     ], UnsupportedNotationException::class ],
             [ [ 'notation' => KeyTools::NOTATION_DETERMINED_BY_KEY ], UnsupportedNotationException::class ],
         ];
     }
@@ -66,7 +66,7 @@ class KeyToolsTest extends TestCase
         $keyTools = new KeyTools();
         $calculatedKey = $keyTools->calculateKey($key, $step, $toggleScale);
 
-        $this->assertSame($expectedKey, $calculatedKey);
+        static::assertSame($expectedKey, $calculatedKey);
     }
 
     public function dataCalculateKeySuccess()
@@ -139,7 +139,7 @@ class KeyToolsTest extends TestCase
         $keyTools = new KeyTools();
         $convertedKey = $keyTools->convertKeyToNotation($key, $notation);
 
-        $this->assertSame($expectedKey, $convertedKey);
+        static::assertSame($expectedKey, $convertedKey);
     }
 
     public function dataConvertKeyToNotationSuccess()
@@ -269,7 +269,7 @@ class KeyToolsTest extends TestCase
             [ [ $keyToolsParams, '1D', KeyTools::NOTATION_CAMELOT_KEY      ], InvalidKeyException::class          ],
             [ [ $keyToolsParams, '1C', KeyTools::NOTATION_MUSICAL_ALT      ], InvalidKeyException::class          ],
             [ [ $keyToolsParams, '1C', KeyTools::NOTATION_MUSICAL_BEATPORT ], InvalidKeyException::class          ],
-            [ [ $keyToolsParams, '1A', uniqid()                            ], UnsupportedNotationException::class ],
+            [ [ $keyToolsParams, '1A', uniqid('', true)                    ], UnsupportedNotationException::class ],
         ];
     }
 
@@ -283,7 +283,7 @@ class KeyToolsTest extends TestCase
         $keyTools = new KeyTools();
         $calculatedResult = $keyTools->{$method}($key);
 
-        $this->assertSame($expectedResult, $calculatedResult);
+        static::assertSame($expectedResult, $calculatedResult);
     }
 
     public function dataKeyScaleSuccess()
@@ -341,7 +341,7 @@ class KeyToolsTest extends TestCase
         $keyTools = new KeyTools($keyToolsParams);
         $calculatedResult = $keyTools->isValidKey($key);
 
-        $this->assertSame($expectedResult, $calculatedResult);
+        static::assertSame($expectedResult, $calculatedResult);
     }
 
     public function dataIsValidKey()
@@ -386,7 +386,7 @@ class KeyToolsTest extends TestCase
             ->getMock();
 
         $keyTools
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('calculateKey')
             ->with($expectedKey, $expectedStep, $expectedModeToggle)
             ->willReturn('');
