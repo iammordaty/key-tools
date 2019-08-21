@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace KeyTools;
 
@@ -15,37 +13,37 @@ class KeyTools
     /**
      * @var string
      */
-    const NOTATION_CAMELOT_KEY = 'camelot_key';
+    public const NOTATION_CAMELOT_KEY = 'camelot_key';
 
     /**
      * @var string
      */
-    const NOTATION_OPEN_KEY = 'open_key';
+    public const NOTATION_OPEN_KEY = 'open_key';
 
     /**
      * @var string
      */
-    const NOTATION_MUSICAL = 'musical';
+    public const NOTATION_MUSICAL = 'musical';
 
     /**
      * @var string
      */
-    const NOTATION_MUSICAL_ALT = 'musical_alt';
+    public const NOTATION_MUSICAL_ALT = 'musical_alt';
 
     /**
      * @var string
      */
-    const NOTATION_MUSICAL_BEATPORT = 'musical_beatport';
+    public const NOTATION_MUSICAL_BEATPORT = 'musical_beatport';
 
      /**
       * @var string
       */
-    const NOTATION_DETERMINED_BY_KEY = '';
+    public const NOTATION_DETERMINED_BY_KEY = '';
 
     /**
      * @var string[]
      */
-    const NOTATION_KEYS_CAMELOT_KEY = [
+    public const NOTATION_KEYS_CAMELOT_KEY = [
         '1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B',
         '5A', '5B', '6A', '6B', '7A', '7B', '8A', '8B',
         '9A', '9B', '10A', '10B', '11A', '11B', '12A', '12B',
@@ -54,7 +52,7 @@ class KeyTools
     /**
      * @var string[]
      */
-    const NOTATION_KEYS_OPEN_KEY = [
+    public const NOTATION_KEYS_OPEN_KEY = [
         '6M', '6D', '7M', '7D', '8M', '8D', '9M', '9D',
         '10M', '10D', '11M', '11D', '12M', '12D', '1M', '1D',
         '2M', '2D', '3M', '3D', '4M', '4D', '5M', '5D',
@@ -63,7 +61,7 @@ class KeyTools
     /**
      * @var string[]
      */
-    const NOTATION_KEYS_MUSICAL = [
+    public const NOTATION_KEYS_MUSICAL = [
         'Abm', 'B', 'Ebm', 'Gb', 'Bbm', 'Db', 'Fm', 'Ab',
         'Cm', 'Eb', 'Gm', 'Bb', 'Dm', 'F', 'Am', 'C',
         'Em', 'G', 'Bm', 'D', 'Gbm', 'A', 'Dbm', 'E',
@@ -72,7 +70,7 @@ class KeyTools
     /**
      * @var string[]
      */
-    const NOTATION_KEYS_MUSICAL_ALT = [
+    public const NOTATION_KEYS_MUSICAL_ALT = [
         'G#m', 'B', 'Ebm', 'F#', 'A#m', 'Db', 'Fm', 'G#',
         'Cm', 'D#', 'Gm', 'Bb', 'Dm', 'F', 'Am', 'C',
         'Em', 'G', 'Bm', 'D', 'F#m', 'A', 'C#m', 'E',
@@ -81,7 +79,7 @@ class KeyTools
     /**
      * @var string[]
      */
-    const NOTATION_KEYS_MUSICAL_BEATPORT = [
+    public const NOTATION_KEYS_MUSICAL_BEATPORT = [
         'G#m', 'Bmaj', 'Ebm', 'Gb', 'Bbm', 'Db', 'Fmin', 'Ab',
         'Cmin', 'Eb', 'Gmin', 'Bb', 'Dmin', 'Fmaj', 'Amin', 'Cmaj',
         'Emin', 'Gmaj', 'Bmin', 'Dmaj', 'F#m', 'Amaj', 'C#m', 'Emaj',
@@ -99,7 +97,7 @@ class KeyTools
     ];
 
     /**
-     * @var string[]
+     * @var array
      */
     private const NOTATION_TO_KEYS_MAP = [
         self::NOTATION_CAMELOT_KEY => self::NOTATION_KEYS_CAMELOT_KEY,
@@ -115,14 +113,14 @@ class KeyTools
     private const WHEEL_KEYS_NUM = 12;
 
     /**
-     * @var string[]
+     * @var array
      */
     private const DEFAULT_PARAMS = [
         'notation' => self::NOTATION_DETERMINED_BY_KEY,
     ];
 
     /**
-     * @var string[]
+     * @var array
      */
     private $keyToNotationMap = [];
 
@@ -349,7 +347,7 @@ class KeyTools
 
     /**
      * @param string $key
-     * @return ?int
+     * @return int|null
      */
     private function getKeyIndex(string $key): ?int
     {
@@ -376,7 +374,7 @@ class KeyTools
         $currentKeyIndex = $keyIndex;
 
         if ($toggleScale) {
-            $currentKeyIndex = $currentKeyIndex % 2 ? $currentKeyIndex - 1 : $currentKeyIndex + 1;
+            $currentKeyIndex = ($currentKeyIndex % 2) ? $currentKeyIndex - 1 : $currentKeyIndex + 1;
         }
 
         $stepChange = $step > 0 ? $step * 2 : (self::WHEEL_KEYS_NUM * 2) + ($step * 2);
@@ -387,7 +385,7 @@ class KeyTools
 
     /**
      * @param string $key
-     * @return ?string
+     * @return string|null ?string
      */
     private function getNotation(string $key): ?string
     {
@@ -425,7 +423,7 @@ class KeyTools
     }
 
     /**
-     * @param ?int $keyIndex
+     * @param int|null $keyIndex
      * @return bool
      */
     private function isValidKeyIndex(?int $keyIndex): bool
@@ -439,6 +437,6 @@ class KeyTools
      */
     private function normalizeKey($key): string
     {
-        return ltrim(strtolower($key), '0');
+        return strtolower(ltrim($key, '0'));
     }
 }
