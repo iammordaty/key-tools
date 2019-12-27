@@ -102,7 +102,7 @@ class KeyTools
     /**
      * @var string[]
      */
-    private const SUPPORTED_NOTATIONS = [
+    proteted const SUPPORTED_NOTATIONS = [
         self::NOTATION_CAMELOT_KEY,
         self::NOTATION_OPEN_KEY,
         self::NOTATION_MUSICAL,
@@ -114,7 +114,7 @@ class KeyTools
     /**
      * @var array
      */
-    private const NOTATION_TO_KEYS_MAP = [
+    proteted const NOTATION_TO_KEYS_MAP = [
         self::NOTATION_CAMELOT_KEY => self::NOTATION_KEYS_CAMELOT_KEY,
         self::NOTATION_OPEN_KEY => self::NOTATION_KEYS_OPEN_KEY,
         self::NOTATION_MUSICAL => self::NOTATION_KEYS_MUSICAL,
@@ -124,16 +124,16 @@ class KeyTools
     ];
 
     /**
+    * @var array
+    */
+    protected const DEFAULT_PARAMS = [
+        'notation' => self::NOTATION_DETERMINED_BY_KEY,
+    ];
+
+    /**
      * @var int
      */
     private const WHEEL_KEYS_NUM = 12;
-
-    /**
-     * @var array
-     */
-    private const DEFAULT_PARAMS = [
-        'notation' => self::NOTATION_DETERMINED_BY_KEY,
-    ];
 
     /**
      * @var array
