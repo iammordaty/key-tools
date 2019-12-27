@@ -35,6 +35,11 @@ class KeyTools
      */
     public const NOTATION_MUSICAL_BEATPORT = 'musical_beatport';
 
+    /**
+     * @var string
+     */
+    public const NOTATION_MUSICAL_ESSENTIA = 'musical_essentia';
+
      /**
       * @var string
       */
@@ -88,12 +93,22 @@ class KeyTools
     /**
      * @var string[]
      */
+    public const NOTATION_KEYS_MUSICAL_ESSENTIA = [
+        'Ab minor', 'B major', 'Eb minor', 'F# major', 'Bb minor', 'C# major', 'F minor', 'Ab major',
+        'C minor', 'Eb major', 'G minor', 'Bb major', 'D minor', 'F major', 'A minor', 'C major',
+        'E minor', 'G major', 'B minor', 'D major', 'F# minor', 'A major', 'C# minor', 'E major',
+    ];
+
+    /**
+     * @var string[]
+     */
     private const SUPPORTED_NOTATIONS = [
         self::NOTATION_CAMELOT_KEY,
         self::NOTATION_OPEN_KEY,
         self::NOTATION_MUSICAL,
         self::NOTATION_MUSICAL_ALT,
         self::NOTATION_MUSICAL_BEATPORT,
+        self::NOTATION_MUSICAL_ESSENTIA,
     ];
 
     /**
@@ -105,6 +120,7 @@ class KeyTools
         self::NOTATION_MUSICAL => self::NOTATION_KEYS_MUSICAL,
         self::NOTATION_MUSICAL_ALT => self::NOTATION_KEYS_MUSICAL_ALT,
         self::NOTATION_MUSICAL_BEATPORT => self::NOTATION_KEYS_MUSICAL_BEATPORT,
+        self::NOTATION_MUSICAL_ESSENTIA => self::NOTATION_KEYS_MUSICAL_ESSENTIA,
     ];
 
     /**
