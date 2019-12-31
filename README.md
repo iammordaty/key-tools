@@ -22,7 +22,7 @@ KeyTools is based on the code written by [@mossspence](https://github.com/mosssp
 
 ## Installation
 
-The easiest way to install this middleware is via [composer](https://getcomposer.org):
+The easiest way to install this library is via [composer](https://getcomposer.org):
 
 ```bash
 $ composer require iammordaty/key-tools
@@ -106,13 +106,13 @@ try {
 
 ## Tests
 
-Use [PHPunit](https://phpunit.de) to run tests:
+Copy `phpunit.xml.dist` file to `phpunit.xml` and use [PHPUnit](https://phpunit.de) to run tests:
 
 ```bash
-$ phpunit
+$ ./vendor/bin/phpunit
 ```
 
-## Further informations
+## Further information
 
  - [Harmonic mixing overview and how-to](http://www.harmonic-mixing.com/HowTo.aspx)
  - ["What Is Harmonic Mixing?" – tutorial by DJ Endo](http://blog.dubspot.com/harmonic-mixing-w-dj-endo-part-1/)
@@ -121,7 +121,7 @@ $ phpunit
  - [Camelot wheel (image)](https://forums.pioneerdj.com/hc/user_images/yBXP1v0OnnB8wIrg3_mbpw.jpeg)
  - [More possibilities for harmonic mixing (image)](https://imgur.com/KYw9IBE)
  - [Essentia – C++ library for audio and music analysis, description and synthesis](https://github.com/MTG/essentia)
- - [Essentia streaming extractor](https://github.com/MTG/essentia/blob/master/doc/sphinxdoc/extractors_out_of_box.rst)
+ - [Essentia streaming extractor music command-line tool](https://essentia.upf.edu/streaming_extractor_music.html)
 
 ## License
 
