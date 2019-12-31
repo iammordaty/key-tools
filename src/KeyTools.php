@@ -1,12 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace KeyTools;
 
-use KeyTools\{
-    Exception\InvalidArgumentException,
-    Exception\InvalidKeyException,
-    Exception\UnsupportedNotationException
-};
+use KeyTools\Exception\InvalidArgumentException;
+use KeyTools\Exception\InvalidKeyException;
+use KeyTools\Exception\UnsupportedNotationException;
 
 class KeyTools
 {
@@ -40,9 +40,9 @@ class KeyTools
      */
     public const NOTATION_MUSICAL_ESSENTIA = 'musical_essentia';
 
-     /**
-      * @var string
-      */
+    /**
+     * @var string
+     */
     public const NOTATION_DETERMINED_BY_KEY = '';
 
     /**
@@ -124,8 +124,8 @@ class KeyTools
     ];
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected const DEFAULT_PARAMS = [
         'notation' => self::NOTATION_DETERMINED_BY_KEY,
     ];
