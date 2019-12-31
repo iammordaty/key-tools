@@ -1,4 +1,5 @@
 /composer.lock
 /phpunit.xml
+/.idea
 /tests/coverage/
 /vendor/
