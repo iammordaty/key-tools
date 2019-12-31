@@ -7,12 +7,22 @@ Supported notations:
 * Open Key
 * Musical
 * Musical used by Beatport
+* Musical used by Essentia streaming extractor
 
 KeyTools is based on the code written by [@mossspence](https://github.com/mossspence), which can be found [here](https://github.com/mossspence/trakofflive/blob/master/appsrc/moss/musicapp/finder/keyTools.php).
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Further information](#further-information)
+- [License](#license)
+
 ## Installation
 
-Use [Composer](https://getcomposer.org/) to install it:
+The easiest way to install this middleware is via [composer](https://getcomposer.org):
 
 ```bash
 $ composer require iammordaty/key-tools
@@ -79,10 +89,8 @@ echo $keyTools->convertKeyToNotation($key, $notation); // "4A"
 
 
 ```php
-use KeyTools\{
-    Exception\InvalidKeyException,
-    Exception\UnsupportedNotationException
-};
+use KeyTools\Exception\InvalidKeyException;
+use KeyTools\Exception\UnsupportedNotationException;
 
 $key = 'Fmin';
 $notation = KeyTools::NOTATION_CAMELOT_KEY;
@@ -94,7 +102,6 @@ try {
 } catch (InvalidKeyException | UnsupportedNotationException $e) {
     echo $e->getMessage();
 }
-
 ```
 
 ## Tests
@@ -113,6 +120,8 @@ $ phpunit
  - [Open Key notation](https://beatunes.com/en/open-key-notation.html)
  - [Camelot wheel (image)](https://forums.pioneerdj.com/hc/user_images/yBXP1v0OnnB8wIrg3_mbpw.jpeg)
  - [More possibilities for harmonic mixing (image)](https://imgur.com/KYw9IBE)
+ - [Essentia – C++ library for audio and music analysis, description and synthesis](https://github.com/MTG/essentia)
+ - [Essentia streaming extractor](https://github.com/MTG/essentia/blob/master/doc/sphinxdoc/extractors_out_of_box.rst)
 
 ## License
 
