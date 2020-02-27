@@ -2,21 +2,20 @@
 
 namespace KeyTools\Tests;
 
+use KeyTools\Exception\InvalidArgumentException;
+use KeyTools\Exception\InvalidKeyException;
+use KeyTools\Exception\UnsupportedNotationException;
+use KeyTools\KeyTools;
 use PHPUnit\Framework\TestCase;
-
-use KeyTools\{
-    Exception\InvalidArgumentException,
-    Exception\InvalidKeyException,
-    Exception\UnsupportedNotationException,
-    KeyTools
-};
 
 class KeyToolsTest extends TestCase
 {
     /**
      * @dataProvider dataCreateSuccess
+     *
+     * @param array $params
      */
-    public function testCreateSuccess($params)
+    public function testCreateSuccess(array $params): void
     {
         [ $keyToolsParams, $key ] = $params;
 
@@ -26,7 +25,7 @@ class KeyToolsTest extends TestCase
         static::assertTrue($calculatedResult);
     }
 
-    public function dataCreateSuccess()
+    public function dataCreateSuccess(): array
     {
         return [
             [ [ [                                                   ], '1A'   ] ],
@@ -40,15 +39,18 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataCreateError
+     *
+     * @param array $params
+     * @param string $expectedException
      */
-    public function testCreateError($params, $expectedException)
+    public function testCreateError(array $params, string $expectedException): void
     {
         $this->expectException($expectedException);
 
         new KeyTools($params);
     }
 
-    public function dataCreateError()
+    public function dataCreateError(): array
     {
         return [
             [ [ 'notation' => uniqid('', true)                     ], UnsupportedNotationException::class ],
@@ -58,8 +60,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataCalculateKeySuccess
+     *
+     * @param array $params
+     * @param string $expectedKey
      */
-    public function testCalculateKeySuccess($params, $expectedKey)
+    public function testCalculateKeySuccess(array $params, string $expectedKey): void
     {
         [ $key, $step, $toggleScale ] = $params;
 
@@ -69,7 +74,7 @@ class KeyToolsTest extends TestCase
         static::assertSame($expectedKey, $calculatedKey);
     }
 
-    public function dataCalculateKeySuccess()
+    public function dataCalculateKeySuccess(): array
     {
         return [
             [ [ '1A', 0, true ], '1B' ],
@@ -108,8 +113,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataCalculateKeyError
+     *
+     * @param array $params
+     * @param string $expectedException
      */
-    public function testCalculateKeyError($params, $expectedException)
+    public function testCalculateKeyError(array $params, string $expectedException): void
     {
         $this->expectException($expectedException);
 
@@ -119,7 +127,7 @@ class KeyToolsTest extends TestCase
         $keyTools->calculateKey($key, $step, $toggleScale);
     }
 
-    public function dataCalculateKeyError()
+    public function dataCalculateKeyError(): array
     {
         return [
             [ [ [ 'notation' => KeyTools::NOTATION_CAMELOT_KEY ], 'XA', 1,   false ], InvalidKeyException::class      ],
@@ -131,8 +139,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataConvertKeyToNotationSuccess
+     *
+     * @param array $params
+     * @param string $expectedKey
      */
-    public function testConvertKeyToNotationSuccess($params, $expectedKey)
+    public function testConvertKeyToNotationSuccess(array $params, string $expectedKey): void
     {
         [ $key, $notation ] = $params;
 
@@ -142,7 +153,7 @@ class KeyToolsTest extends TestCase
         static::assertSame($expectedKey, $convertedKey);
     }
 
-    public function dataConvertKeyToNotationSuccess()
+    public function dataConvertKeyToNotationSuccess(): array
     {
         return [
             [ [ '1A',  KeyTools::NOTATION_OPEN_KEY ], '6M'  ],
@@ -274,8 +285,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataConvertKeyToNotationError
+     *
+     * @param array $params
+     * @param string $expectedException
      */
-    public function testConvertKeyToNotationError($params, $expectedException)
+    public function testConvertKeyToNotationError(array $params, string $expectedException): void
     {
         $this->expectException($expectedException);
 
@@ -285,7 +299,7 @@ class KeyToolsTest extends TestCase
         $keyTools->convertKeyToNotation($key, $notation);
     }
 
-    public function dataConvertKeyToNotationError()
+    public function dataConvertKeyToNotationError(): array
     {
         $keyToolsParams = [ 'notation' => KeyTools::NOTATION_CAMELOT_KEY ];
 
@@ -300,8 +314,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataKeyScaleSuccess
+     *
+     * @param array $params
+     * @param bool $expectedResult
      */
-    public function testKeyScaleSuccess($params, $expectedResult)
+    public function testKeyScaleSuccess(array $params, bool $expectedResult): void
     {
         [ $method, $key ] = $params;
 
@@ -311,7 +328,7 @@ class KeyToolsTest extends TestCase
         static::assertSame($expectedResult, $calculatedResult);
     }
 
-    public function dataKeyScaleSuccess()
+    public function dataKeyScaleSuccess(): array
     {
         return [
             [ [ 'isMajorKey', '1B' ], true ],
@@ -328,8 +345,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataKeyScaleError
+     *
+     * @param array $params
+     * @param string $expectedException
      */
-    public function testKeyScaleError($params, $expectedException)
+    public function testKeyScaleError(array $params, string $expectedException): void
     {
         $this->expectException($expectedException);
 
@@ -339,7 +359,7 @@ class KeyToolsTest extends TestCase
         $keyTools->{$method}($key);
     }
 
-    public function dataKeyScaleError()
+    public function dataKeyScaleError(): array
     {
         return [
             [ [ [ 'notation' => KeyTools::NOTATION_CAMELOT_KEY      ], 'isMajorKey', '1D'   ], InvalidKeyException::class ],
@@ -358,8 +378,11 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataIsValidKey
+     *
+     * @param array $params
+     * @param bool $expectedResult
      */
-    public function testIsValidKey($params, $expectedResult)
+    public function testIsValidKey(array $params, bool $expectedResult): void
     {
         [ $keyToolsParams, $key ] = $params;
 
@@ -369,7 +392,7 @@ class KeyToolsTest extends TestCase
         static::assertSame($expectedResult, $calculatedResult);
     }
 
-    public function dataIsValidKey()
+    public function dataIsValidKey(): array
     {
         return [
             [ [ [ 'notation' => KeyTools::NOTATION_CAMELOT_KEY ], '1A'  ], true ],
@@ -400,14 +423,17 @@ class KeyToolsTest extends TestCase
 
     /**
      * @dataProvider dataShorthandMethod
+     *
+     * @param array $params
+     * @param array $expected
      */
-    public function testShorthandMethod($params, $expected)
+    public function testShorthandMethod(array $params, array $expected): void
     {
         [ $method, $key ] = $params;
         [ $expectedKey, $expectedStep, $expectedModeToggle ] = $expected;
 
         $keyTools = $this->getMockBuilder(KeyTools::class)
-            ->setMethods([ 'calculateKey' ])
+            ->onlyMethods([ 'calculateKey' ])
             ->getMock();
 
         $keyTools
@@ -419,7 +445,7 @@ class KeyToolsTest extends TestCase
         $keyTools->{$method}($key);
     }
 
-    public function dataShorthandMethod()
+    public function dataShorthandMethod(): array
     {
         $key = KeyTools::NOTATION_KEYS_CAMELOT_KEY[array_rand(KeyTools::NOTATION_KEYS_CAMELOT_KEY)];
 
