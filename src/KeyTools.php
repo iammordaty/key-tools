@@ -192,7 +192,9 @@ class KeyTools
     }
 
     /**
-     * @deprecated Set parameters via constructor instead
+     * @deprecated This method will have private scope or will be removed in near future.
+     *             Set parameters via constructor instead.
+     *
      * @param array $userParams
      *
      * @throws UnsupportedNotationException
