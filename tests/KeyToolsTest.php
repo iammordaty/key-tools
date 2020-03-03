@@ -59,6 +59,44 @@ class KeyToolsTest extends TestCase
     }
 
     /**
+     * @dataProvider dataCreateFromNotation
+     *
+     * @param array $params
+     */
+    public function testCreateFromNotation(array $params): void
+    {
+        [ $notation, $useLeadingZero, $key ] = $params;
+
+        $keyTools = KeyTools::fromNotation($notation, $useLeadingZero);
+        $calculatedKey = $keyTools->calculateKey($key, 0);
+
+        static::assertSame($calculatedKey, $key);
+    }
+
+    public function dataCreateFromNotation(): array
+    {
+        return [
+            [ [ KeyTools::NOTATION_CAMELOT_KEY,      null, '1A'   ] ],
+            [ [ KeyTools::NOTATION_OPEN_KEY,         null, '1D'   ] ],
+            [ [ KeyTools::NOTATION_MUSICAL,          null, 'Abm'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_ALT,      null, 'G#m'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_BEATPORT, null, 'Cmin' ] ],
+
+            [ [ KeyTools::NOTATION_CAMELOT_KEY,      false, '1A'   ] ],
+            [ [ KeyTools::NOTATION_OPEN_KEY,         false, '1D'   ] ],
+            [ [ KeyTools::NOTATION_MUSICAL,          false, 'Abm'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_ALT,      false, 'G#m'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_BEATPORT, false, 'Cmin' ] ],
+
+            [ [ KeyTools::NOTATION_CAMELOT_KEY,      true, '01A'  ] ],
+            [ [ KeyTools::NOTATION_OPEN_KEY,         true, '01D'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL,          true, 'Abm'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_ALT,      true, 'G#m'  ] ],
+            [ [ KeyTools::NOTATION_MUSICAL_BEATPORT, true, 'Cmin' ] ],
+        ];
+    }
+
+    /**
      * @dataProvider dataCalculateKeySuccess
      *
      * @param array $keyToolsParams

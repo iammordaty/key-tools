@@ -174,6 +174,24 @@ class KeyTools
     }
 
     /**
+     * @param string $notation
+     * @param bool|null $useLeadingZero
+     * @return static
+     */
+    public static function fromNotation(string $notation, ?bool $useLeadingZero = null)
+    {
+        $params = [
+            'notation' => $notation,
+        ];
+
+        if ($useLeadingZero !== null) {
+            $params['leading_zero'] = $useLeadingZero;
+        }
+
+        return new static($params);
+    }
+
+    /**
      * @param array $userParams
      *
      * @throws UnsupportedNotationException
