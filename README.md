@@ -9,7 +9,8 @@ Supported notations:
 * Musical used by Beatport
 * Musical used by Essentia streaming extractor
 
-KeyTools is based on the code written by [@mossspence](https://github.com/mossspence), which can be found [here](https://github.com/mossspence/trakofflive/blob/master/appsrc/moss/musicapp/finder/keyTools.php).
+KeyTools is based on the code written by [@mossspence](https://github.com/mossspence), which can be found 
+[here](https://github.com/mossspence/trakofflive/blob/master/appsrc/moss/musicapp/finder/keyTools.php).
 
 ## Table of Contents
 
@@ -46,6 +47,24 @@ echo $keyTools->calculateKey('3A', 1); // "4A"
 echo $keyTools->calculateKey('3A', 2); // "5A"
 echo $keyTools->calculateKey('3A', -1); // "2A"
 echo $keyTools->calculateKey('3A', 0, true); // "3B"
+```
+
+KeyTools can return keys with a leading zero – just set the parameter `leading_zero` to `true`,
+as in the following example. Please note that, this setting applies only to Camelot Key and Open Key notations.
+
+```php
+use KeyTools\KeyTools;
+
+$keyTools = new KeyTools([ 
+    'leading_zero' => true, 
+    'notation' => KeyTools::NOTATION_CAMELOT_KEY, 
+]);
+
+echo $keyTools->calculateKey('3A'); // "03A"
+echo $keyTools->calculateKey('3A', 1); // "04A"
+echo $keyTools->calculateKey('3A', 2); // "05A"
+echo $keyTools->calculateKey('3A', -1); // "02A"
+echo $keyTools->calculateKey('3A', 0, true); // "03B"
 ```
 
 To calculate new key, you can also use shorthand methods:
@@ -86,7 +105,6 @@ echo $keyTools->convertKeyToNotation($key, $notation); // "4A"
 ```
 
 ... or by throwing appropriate exceptions:
-
 
 ```php
 use KeyTools\Exception\InvalidKeyException;

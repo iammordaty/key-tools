@@ -124,10 +124,19 @@ class KeyTools
     ];
 
     /**
+     * @var string[]
+     */
+    protected const NOTATIONS_WITH_LEADING_ZERO_KEYS = [
+        self::NOTATION_CAMELOT_KEY,
+        self::NOTATION_OPEN_KEY,
+    ];
+
+    /**
      * @var array
      */
     protected const DEFAULT_PARAMS = [
         'notation' => self::NOTATION_DETERMINED_BY_KEY,
+        'leading_zero' => false,
     ];
 
     /**
@@ -165,14 +174,20 @@ class KeyTools
     }
 
     /**
-     * @param array $params
+     * @param array $userParams
      *
      * @throws UnsupportedNotationException
      */
-    public function setParams(array $params): void
+    public function setParams(array $userParams): void
     {
-        if (isset($params['notation']) && !$this->isSupportedNotation($params['notation'])) {
-            throw new UnsupportedNotationException(sprintf('Invalid notation specified (%s)', $params['notation']));
+        if (isset($userParams['notation']) && !$this->isSupportedNotation($userParams['notation'])) {
+            throw new UnsupportedNotationException(sprintf('Invalid notation specified (%s)', $userParams['notation']));
+        }
+
+        $params = $userParams;
+
+        if (!isset($params['leading_zero'])) {
+            $params['leading_zero'] = static::DEFAULT_PARAMS['leading_zero'];
         }
 
         $this->params = $params;
@@ -202,7 +217,13 @@ class KeyTools
         $notation = $this->getNotation($key);
         $newKeyIndex = $this->calculateNewKeyIndex($keyIndex, $step, $toggleScale);
 
-        return self::NOTATION_TO_KEYS_MAP[$notation][$newKeyIndex];
+        $newKey = self::NOTATION_TO_KEYS_MAP[$notation][$newKeyIndex];
+
+        if ($this->shouldContainsLeadingZero($newKey, $notation)) {
+            $newKey = '0' . $newKey;
+        }
+
+        return $newKey;
     }
 
     /**
@@ -225,7 +246,13 @@ class KeyTools
             throw new UnsupportedNotationException(sprintf('Invalid notation specified (%s)', $newNotation));
         }
 
-        return self::NOTATION_TO_KEYS_MAP[$newNotation][$keyIndex];
+        $newKey = self::NOTATION_TO_KEYS_MAP[$newNotation][$keyIndex];
+
+        if ($this->shouldContainsLeadingZero($newKey, $newNotation)) {
+            $newKey = '0' . $newKey;
+        }
+
+        return $newKey;
     }
 
     /**
@@ -436,6 +463,22 @@ class KeyTools
                 }
             }
         }
+    }
+
+    /**
+     * @param string $key
+     * @param string $notation
+     * @return bool
+     */
+    private function shouldContainsLeadingZero(string $key, string $notation): bool
+    {
+        if (!$this->params['leading_zero'] || !in_array($notation, static::NOTATIONS_WITH_LEADING_ZERO_KEYS, true)) {
+            return false;
+        }
+
+        $wheelIndex = (int) rtrim($key, 'ABDM');
+
+        return $wheelIndex < 10;
     }
 
     /**
