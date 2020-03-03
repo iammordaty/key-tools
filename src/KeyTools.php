@@ -235,7 +235,7 @@ class KeyTools
         $notation = $this->getNotation($key);
         $newKeyIndex = $this->calculateNewKeyIndex($keyIndex, $step, $toggleScale);
 
-        $newKey = self::NOTATION_TO_KEYS_MAP[$notation][$newKeyIndex];
+        $newKey = static::NOTATION_TO_KEYS_MAP[$notation][$newKeyIndex];
 
         if ($this->shouldContainsLeadingZero($newKey, $notation)) {
             $newKey = '0' . $newKey;
@@ -264,7 +264,7 @@ class KeyTools
             throw new UnsupportedNotationException(sprintf('Invalid notation specified (%s)', $newNotation));
         }
 
-        $newKey = self::NOTATION_TO_KEYS_MAP[$newNotation][$keyIndex];
+        $newKey = static::NOTATION_TO_KEYS_MAP[$newNotation][$keyIndex];
 
         if ($this->shouldContainsLeadingZero($newKey, $newNotation)) {
             $newKey = '0' . $newKey;
@@ -290,7 +290,7 @@ class KeyTools
      */
     public function isSupportedNotation(string $notation): bool
     {
-        return in_array($notation, self::SUPPORTED_NOTATIONS);
+        return in_array($notation, static::SUPPORTED_NOTATIONS);
     }
 
     /**
@@ -452,7 +452,7 @@ class KeyTools
     {
         $notation = $this->params['notation'];
 
-        if ($notation === self::NOTATION_DETERMINED_BY_KEY) {
+        if ($notation === static::NOTATION_DETERMINED_BY_KEY) {
             $normalizedKey = $this->normalizeKey($key);
 
             $notation = $this->keyToNotationMap[$normalizedKey];
@@ -466,7 +466,7 @@ class KeyTools
      */
     private function setup(): void
     {
-        foreach (self::NOTATION_TO_KEYS_MAP as $notation => $keys) {
+        foreach (static::NOTATION_TO_KEYS_MAP as $notation => $keys) {
             if (!isset($this->notationToKeysMap[$notation])) {
                 $this->notationToKeysMap[$notation] = [];
             }
