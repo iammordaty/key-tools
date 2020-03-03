@@ -401,7 +401,7 @@ class KeyTools
         }
 
         $notation = $this->getNotation($key);
-        $keyIndex = array_search($normalizedKey, $this->notationToKeysMap[$notation]);
+        $keyIndex = array_search($normalizedKey, $this->notationToKeysMap[$notation], true);
 
         return $keyIndex !== false ? (int) $keyIndex : null;
     }
